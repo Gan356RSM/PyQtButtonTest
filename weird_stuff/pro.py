@@ -1,4 +1,6 @@
 from PyQt5.QtWidgets import *
+import requests
+import json
 
 dic = {}
 select_word = ""
@@ -8,9 +10,12 @@ win = QWidget()
 
 def Add():
     word, ok = QInputDialog.getText(win, "Add Word", "Enter word:")
-    dic[word] = ""
+    response = requests.get("https://api.dictionaryapi.dev/api/v2/entries/en/" + word)
+    d = json.loads(response.text)
+    dic[word] = d[0]['meanings'][0]['definitions'][0]['definition']
     if ok:
         lw.addItem(word)
+
 
 def Delete():
     text_e.clear()
