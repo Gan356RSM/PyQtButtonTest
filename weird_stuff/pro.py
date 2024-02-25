@@ -37,6 +37,13 @@ def Selective_Items():
     text_e.setPlainText(dic[item])
     select_word = item
 
+def showDialog():
+    msgBox = QMessageBox()
+    msgBox.setText("Message box pop up window")
+    msgBox.setWindowTitle("Introduction")
+    msgBox.exec()
+
+
 
 lw = QListWidget()
 text_e = QTextEdit()
@@ -44,10 +51,11 @@ text_e = QTextEdit()
 lw.itemClicked.connect(Selective_Items)
 butt1 = QPushButton("Add")
 butt2 = QPushButton("Delete")
-butt3 = QPushButton("Save")
+butt3 = QPushButton("Introduction")
 
 butt1.clicked.connect(Add)
 butt2.clicked.connect(Delete)
+butt3.clicked.connect(showDialog)
 
 laysV1 = QVBoxLayout()
 laysV2 = QVBoxLayout()
