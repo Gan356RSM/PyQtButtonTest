@@ -1,0 +1,32 @@
+from PyQt5.QtWidgets import *
+
+app = QApplication([])
+win = QWidget()
+
+butt1 = QPushButton()
+butt2 = QPushButton()
+butt3 = QPushButton()
+butt4 = QPushButton()
+butt5 = QPushButton()
+lab = QLabel()
+
+laysH = QHBoxLayout()
+laysV = QVBoxLayout()
+
+
+
+laysV.addWidget(lab)
+
+laysV.addLayout(laysH)
+
+laysH.addWidget(butt1)
+laysH.addWidget(butt2)
+laysH.addWidget(butt3)
+laysH.addWidget(butt4)
+laysH.addWidget(butt5)
+
+
+win.setLayout(laysV)
+
+win.show()
+app.exec()
