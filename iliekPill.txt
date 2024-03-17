@@ -1,23 +1,87 @@
 from PyQt5.QtWidgets import *
+from PyQt5.QtCore import Qt
+from PyQt5.QtGui import QPixmap
+from PIL import Image
 
 app = QApplication([])
 win = QWidget()
 
-butt1 = QPushButton()
-butt2 = QPushButton()
-butt3 = QPushButton()
-butt4 = QPushButton()
-butt5 = QPushButton()
-lab = QLabel()
+def bw():
+    with Image.open("Beef-Tacos.jpg") as im:
+        im = im.convert("L")
+        im.save("bw.png")
+    
+    pixmap = QPixmap("bw.png")
+    pixmap = pixmap.scaled(lab.width(), lab.height(), Qt.KeepAspectRatio)
+    lab.setPixmap(pixmap)
+
+def rot():
+    with Image.open("Beef-Tacos.jpg") as im:
+        im = im.transpose(Image.ROTATE_90)
+        im.save("rot.png")
+    
+    pixmap = QPixmap("rot.png")
+    pixmap = pixmap.scaled(lab.width(), lab.height(), Qt.KeepAspectRatio)
+    lab.setPixmap(pixmap)
+
+def flip_flop():
+    with Image.open("Beef-Tacos.jpg") as im:
+        im = im.transpose(Image.FLIP_LEFT_RIGHT)
+        im.save("flip-flop.png")
+    
+    pixmap = QPixmap("flip-flop.png")
+    pixmap = pixmap.scaled(lab.width(), lab.height(), Qt.KeepAspectRatio)
+    lab.setPixmap(pixmap)
+
+def flop_flip():
+    with Image.open("Beef-Tacos.jpg") as im:
+        im = im.transpose(Image.FLIP_TOP_BOTTOM)
+        im.save("flop-flip.png")
+    
+    pixmap = QPixmap("flip-flop.png")
+    pixmap = pixmap.scaled(lab.width(), lab.height(), Qt.KeepAspectRatio)
+    lab.setPixmap(pixmap)
+
+def rot180():
+    with Image.open("Beef-Tacos.jpg") as im:
+        im = im.transpose(Image.ROTATE_180)
+        im.save("rot180.png")
+    
+    pixmap = QPixmap("rot180.png")
+    pixmap = pixmap.scaled(lab.width(), lab.height(), Qt.KeepAspectRatio)
+    lab.setPixmap(pixmap)
+
+pbutt = QPushButton()
+listw = QListWidget()
+
+butt1 = QPushButton("Nostalgia")
+butt2 = QPushButton("Rotate 90")
+butt3 = QPushButton("Flip Flop")
+butt4 = QPushButton("Flop Flip")
+butt5 = QPushButton("Rotate 180")
+
+butt1.clicked.connect(bw)
+butt2.clicked.connect(rot)
+butt3.clicked.connect(flip_flop)
+butt4.clicked.connect(flop_flip)
+butt5.clicked.connect(rot180)
+
+lab = QLabel("Hi")
+pixmap = QPixmap("Beef-Tacos.jpg")
+pixmap = pixmap.scaled(lab.width(), lab.height(), Qt.KeepAspectRatio)
+lab.setPixmap(pixmap)
 
 laysH = QHBoxLayout()
-laysV = QVBoxLayout()
+laysV1 = QVBoxLayout()
+laysV2 = QVBoxLayout()
+laysM = QHBoxLayout()
 
+laysV2.addWidget(pbutt)
+laysV2.addWidget(listw)
 
+laysV1.addWidget(lab)
 
-laysV.addWidget(lab)
-
-laysV.addLayout(laysH)
+laysV1.addLayout(laysH)
 
 laysH.addWidget(butt1)
 laysH.addWidget(butt2)
@@ -25,8 +89,10 @@ laysH.addWidget(butt3)
 laysH.addWidget(butt4)
 laysH.addWidget(butt5)
 
+laysM.addLayout(laysV2)
+laysM.addLayout(laysV1)
 
-win.setLayout(laysV)
+win.setLayout(laysM)
 
 win.show()
 app.exec()
